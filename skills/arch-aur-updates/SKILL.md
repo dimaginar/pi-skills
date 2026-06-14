@@ -40,7 +40,7 @@ For **each package** returned by the PKGBUILD tool, perform a static security an
 4. **prepare()/build()**: no external downloads or script execution?
 5. **.install file referenced?** If `install=$pkgname.install` appears in the PKGBUILD, fetch it via curl from the AUR web interface:
    ```bash
-   curl -s "https://aur.archlinux.org/cgit/aur.git/plain/$pkgname/$pkgname.install"
+   curl -s "https://aur.archlinux.org/cgit/aur.git/plain/$pkgname.install?h=$pkgname"
    ```
    Inspect the `.install` file for malicious pre/post install hooks. Do NOT execute the script.
 
