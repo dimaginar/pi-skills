@@ -10,7 +10,6 @@ This skill adds a review step before you update, catching suspicious patterns li
 
 ## Requirements
 
-- `pacman` and `paru` installed
 - Pi coding agent with bash tool access
 - Write access to `~/.local/state/paru/` in your sandbox (see below)
 

@@ -7,7 +7,7 @@ description: Find and display full PKGBUILD contents of AUR packages that have u
 
 ## Purpose
 
-Finds packages that are both installed locally (via pacman) and available in the AUR (via paru), then displays their full PKGBUILD contents so you can review what's being updated.
+Finds locally installed AUR packages that have pending updates available, then fetches and displays their PKGBUILD contents for security review before installing.
 
 ## Workflow
 
