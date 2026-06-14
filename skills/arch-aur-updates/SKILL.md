@@ -50,5 +50,4 @@ For **each package** returned by the PKGBUILD tool, perform a static security an
 
 ## Notes
 
-- Requires `pacman` and `paru` to be installed.
 - Requires write access to `~/.local/state/paru/` for paru to function. If you get a "Read-only file system" error, ensure the sandbox allows writes to that path.
