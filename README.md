@@ -8,7 +8,7 @@ Skills are markdown files that instruct Pi how to handle specific tasks: bash co
 
 ## Usage
 
-Copy a skill into your project's skills directory and reference it in your Pi config. Each skill has its own README with specific setup instructions.
+Copy the full skill directory (e.g. skills/arch-aur-updates/) into your project's skills folder and reference it in your Pi config. Each skill has its own README with specific setup instructions.
 
 ## Skills
 
