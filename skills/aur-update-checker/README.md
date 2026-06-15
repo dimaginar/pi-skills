@@ -15,7 +15,7 @@ This skill adds a review step before you update, catching suspicious patterns li
 
 ## Installation
 
-Copy the full skill directory (`aur-update-checker/`) into your project's skills folder and reference it in your Pi config.
+Copy the full skill directory (`aur-update-checker/`) into your (project's) skills folder and reference it in your Pi config.
 
 ## Sandbox setup
 
