@@ -1,10 +1,10 @@
-# arch-aur-updates
+# aur-update-checker
 
 A [Pi coding agent](https://github.com/earendil-works/pi) skill that detects AUR package updates and performs static security analysis on their PKGBUILDs before you install them.
 
 ## Why this exists
 
-In June 2026, the **"Atomic Arch"** supply chain attack compromised 1500+ AUR packages by injecting malicious build scripts into orphaned packages. The attack deployed an infostealer and eBPF rootkit targeting developer credentials, SSH keys, and browser tokens — all triggered silently during a normal `paru` update.
+In June 2026, the **"Atomic Arch"** supply chain attack compromised 1500+ AUR packages by injecting malicious build scripts into orphaned packages. The attack deployed an infostealer and eBPF rootkit targeting developer credentials, SSH keys, and browser tokens, all triggered silently during a normal `paru` update.
 
 This skill adds a review step before you update, catching suspicious patterns like unexpected `npm install`, `curl | bash`, or unknown download sources inside PKGBUILDs.
 
@@ -15,7 +15,7 @@ This skill adds a review step before you update, catching suspicious patterns li
 
 ## Installation
 
-Copy `skill.md` into your project's skills directory and reference it in your Pi config.
+Copy the full skill directory (`aur-update-checker/`) into your project's skills folder and reference it in your Pi config.
 
 ## Sandbox setup
 
@@ -44,8 +44,8 @@ Pi will fetch all pending AUR PKGBUILDs and report `CLEAN` or `SUSPICIOUS` per p
 
 ## What it checks
 
-1. Download sources — only official domains allowed
-2. SHA256 checksums — must be present for every source
-3. `package()` function — flags dangerous commands
-4. `prepare()`/`build()` — no external downloads or script execution
-5. `.install` hooks — fetched from AUR and statically inspected
+1. Download sources: only official domains allowed
+2. SHA256 checksums: must be present for every source
+3. `package()` function: flags dangerous commands
+4. `prepare()`/`build()`: no external downloads or script execution
+5. `.install` hooks: fetched from AUR and statically inspected

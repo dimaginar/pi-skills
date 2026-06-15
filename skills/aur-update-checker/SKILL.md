@@ -1,22 +1,17 @@
 ---
-name: arch-aur-updates
-description: Find and display full PKGBUILD contents of AUR packages that have updates available. Use when checking which locally installed AUR packages need updating and reviewing their PKGBUILD details.
+name: aur-update-checker
+description: Finds locally installed AUR packages with pending updates and performs static security analysis on their PKGBUILDs before installing.
 ---
-
-# Arch Linux AUR Update Checker
+# AUR Update Checker
 
 ## Purpose
-
 Finds locally installed AUR packages that have pending updates available, then fetches and displays their PKGBUILD contents for security review before installing.
 
 ## Workflow
-
 When the user says "check" or any variation, execute the following two steps **in order**:
 
-### Step 1 — Fetch PKGBUILDs (raw output)
-
+### Step 1: Fetch PKGBUILDs (raw output)
 Run this command and output its **exact stdout/stderr** — verbatim, no commentary:
-
 ```bash
 comm -12 <(pacman -Qmq | sort) <(paru -Quq | sort) | while read pkg; do
   echo "=== $pkg ==="
@@ -24,14 +19,12 @@ comm -12 <(pacman -Qmq | sort) <(paru -Quq | sort) | while read pkg; do
   echo
 done 2>&1
 ```
-
 Rules for Step 1 output:
 - Do NOT reformat, re-wrap, or re-indent the PKGBUILD content.
 - If no packages match, output nothing (empty result is valid).
 - If the command fails, output the error message exactly as-is.
 
-### Step 2 — Security Analysis
-
+### Step 2: Security Analysis
 For **each package** returned by the PKGBUILD tool, perform a static security analysis:
 
 1. **source/source_x86_64**: only official domains (GitHub releases, vendor sites)? Flag unknown domains, pastebins, raw IPs.
@@ -49,5 +42,4 @@ For **each package** returned by the PKGBUILD tool, perform a static security an
 **Report per package:** `CLEAN` or `SUSPICIOUS` with specific line references for each of the five checks.
 
 ## Notes
-
 - Requires write access to `~/.local/state/paru/` for paru to function. If you get a "Read-only file system" error, ensure the sandbox allows writes to that path.
