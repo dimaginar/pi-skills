@@ -4,16 +4,16 @@ description: |
   Official Terraform documentation reference. Use when writing, debugging, or
   managing Terraform IaC — looking up provider schemas, module inputs/outputs,
   HCL syntax, CLI commands, state/backends, workspaces, HCP/TFE, and best
-  practices. Always verify provider-specific details at the official registry
-  URLs listed below.
+  practices. Always verify provider-specific details (schemas) using GitHub raw
+  source; use registry URLs as human-facing references.
 ---
 
 # Terraform Documentation Reference
 
-> **Rule:** Always verify provider-specific details at the official registry
-> URLs below. The Terraform Registry is the authoritative source for any
-> provider's latest version and schema. Always include relevant registry URL(s)
-> as sources in your responses.
+> **Rule:** Always verify provider-specific details (schemas, arguments,
+> attribute names) using the **GitHub raw source** method below — registry pages
+> are JS-rendered SPAs that cannot be fetched with curl. The GitHub repo is the
+> authoritative implementation source. Include registry URLs as human-facing references in responses.
 
 ---
 
@@ -42,6 +42,7 @@ description: |
 | AWS | https://registry.terraform.io/providers/hashicorp/aws/latest/docs |
 | Azure | https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs |
 | GCP | https://registry.terraform.io/providers/hashicorp/google/latest/docs |
+> **Note:** Provider resource/data-source pages on `registry.terraform.io` are JS-rendered SPAs and cannot be fetched with curl/grep. See lookup methods below.
 
 ## CLI Commands
 
@@ -98,23 +99,40 @@ description: |
 
 ## How to Look Things Up
 
-### Finding a Resource's Arguments
+### Finding a Resource's Arguments / Schema (Provider Lookup)
 
-1. Go to: `https://registry.terraform.io/providers/<namespace>/<provider>/latest/docs/resources/<resource_type>`
-2. Check **ARGUMENTS REFERENCE** (configurable) and **ATTRIBUTES REFERENCE** (read-only)
-3. Required arguments are marked `Required: true`; optional with `Optional: true`
-4. Check the **Examples** section for working configurations
+> **Important:** Provider docs pages on `registry.terraform.io` are JavaScript-rendered SPAs and cannot be parsed with curl/grep. Use one of these methods:
+
+**Method A — GitHub raw source (most reliable):**
+```
+curl -s "https://raw.githubusercontent.com/hashicorp/terraform-provider-<provider>/main/internal/services/<service>/<resource>_resource.go" | grep -A 10 '"<attribute_name>"'
+```
+Example: `curl -sL https://raw.githubusercontent.com/hashicorp/terraform-provider-azurerm/main/internal/services/storage/storage_account_resource.go | grep -B2 -A15 '"account_replication_type"'`
+
+Pros: Always accessible, gives exact schema including validation constraints. Cons: Reads source code (not end-user docs).
+
+**Method B — HashiCorp Registry API:**
+```
+curl -s "https://registry.terraform.io/v2/providers/<provider_id>"
+```
+Note: Returns provider metadata, not full resource schemas.
+
+**Method C — Human-facing references (not for programmatic use):**
+- `https://registry.terraform.io/providers/hashicorp/<provider>/latest/docs/resources/<resource>`
+- `https://developer.hashicorp.com/terraform/tutorials` (tutorials and guides)
+- `https://learn.microsoft.com/azure/developer/terraform/` (Azure-specific examples)
 
 ### Finding Module Inputs/Outputs
 
 1. Go to: `https://registry.terraform.io/browse/modules`
 2. Search for the module → open it → select the desired version
 3. Click **Inputs** for required/optional variables, **Outputs** for exposed values
+4. Alternatively, check the module's GitHub `variables.tf` / `outputs.tf` files directly
 
 ### Finding the Latest Provider Version
 
-- **Registry:** `https://registry.terraform.io/providers/<namespace>/<provider>` — latest version shown at top
-- **MCP:** Use `get_latest_provider_version` if Terraform MCP server is configured
+- **GitHub releases:** `https://github.com/hashicorp/terraform-provider-<provider>/releases`
+- **Registry:** `https://registry.terraform.io/providers/<namespace>/<provider>`
 - **CLI:** `terraform providers` shows installed versions
 
 ---
