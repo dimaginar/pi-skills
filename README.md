@@ -15,7 +15,7 @@ Copy the full skill directory (e.g. `skills/aur-update-checker/`) into your (pro
 | Skill | Description |
 |-------|-------------|
 | [aur-update-checker](skills/aur-update-checker/) | Detect AUR package updates and security-analyze PKGBUILDs before installing |
-| [terraform-docs](skills/terraform-docs/) | Curates official Terraform documentation URLs to validate resource schemas, argument names, or outdated provider APIs |
+| [terraform-docs](skills/terraform-docs/) | Curates Terraform documentation to quickly search and validate IaC |
 
 ## Requirements
 
