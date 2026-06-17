@@ -10,7 +10,7 @@ This skill adds a verified reference index that points you to the authoritative 
 - Terraform Registry access (public, no auth needed)
 
 ## Installation
-Copy the full skill directory (terraform-docs/) into your (project's) skills folder and reference it in your Pi config.
+Copy the full skill directory (terraform-docs/) into your (project's) skills folder.
 
 ## Usage
 Tell Pi to look up Terraform docs:
